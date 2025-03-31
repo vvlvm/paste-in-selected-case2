@@ -1,26 +1,60 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from 'vscode'
+import { getUserSelectedCase } from './getUserSelectedCase'
+import { pasteInCase } from './pasteInCase'
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	const selectableDisposable = vscode.commands.registerCommand(
+		'paste-in-selected-case.pasteInSelectedCase',
+		async () => {
+			const userSelectedCase = await getUserSelectedCase()
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "paste-in-selected-case" is now active!');
+			if (!userSelectedCase) {
+				return
+			}
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('paste-in-selected-case.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from paste-in-selected-case!');
-	});
+			// クリップボードの文字列を取得
+			pasteInCase(userSelectedCase)
+		}
+	)
 
-	context.subscriptions.push(disposable);
+	const camelCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.camelCase', async () => {
+		pasteInCase('Camel Case')
+	})
+	const titleCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.titleCase', async () => {
+		pasteInCase('Title Case')
+	})
+	const constantCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.constantCase', async () => {
+		pasteInCase('Constant Case')
+	})
+	const dotCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.dotCase', async () => {
+		pasteInCase('Dot Case')
+	})
+	const paramCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.paramCase', async () => {
+		pasteInCase('Param Case')
+	})
+	const upperCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.upperCase', async () => {
+		pasteInCase('Upper Case')
+	})
+	const pathCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.pathCase', async () => {
+		pasteInCase('Path Case')
+	})
+	const sentenceCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.sentenceCase', async () => {
+		pasteInCase('Sentence Case')
+	})
+	const snakeCaseDisposable = vscode.commands.registerCommand('paste-in-selected-case.snakeCase', async () => {
+		pasteInCase('Snake Case')
+	})
+
+	context.subscriptions.push(selectableDisposable)
+	context.subscriptions.push(camelCaseDisposable)
+	context.subscriptions.push(titleCaseDisposable)
+	context.subscriptions.push(constantCaseDisposable)
+	context.subscriptions.push(dotCaseDisposable)
+	context.subscriptions.push(paramCaseDisposable)
+	context.subscriptions.push(upperCaseDisposable)
+	context.subscriptions.push(pathCaseDisposable)
+	context.subscriptions.push(sentenceCaseDisposable)
+	context.subscriptions.push(snakeCaseDisposable)
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
