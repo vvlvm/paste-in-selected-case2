@@ -1,71 +1,54 @@
-# paste-in-selected-case README
+# Paste in Selected Case
 
-This is the README for your extension "paste-in-selected-case". After writing up a brief description, we recommend including the following sections.
+「Paste in Selected Case」は、クリップボードのテキストを選択したケース（Camel Case、Snake Case、Upper Case など）に変換して貼り付ける Visual Studio Code 拡張機能です。複数カーソルや複数行のテキストにも対応しています。
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- クリップボードのテキストを指定したケースに変換して貼り付け
+- 複数カーソルに対応し、それぞれのカーソル位置に異なるテキストを貼り付け
+- 改行を含むテキストを分割して貼り付けるオプション
+- サポートされるケース:
+  - Camel Case
+  - Title Case
+  - Constant Case
+  - Dot Case
+  - Param Case
+  - Upper Case
+  - Path Case
+  - Sentence Case
+  - Snake Case
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+この拡張機能を使用するには、以下が必要です:
+
+- Visual Studio Code バージョン 1.98.0 以上
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+この拡張機能は以下のコマンドを提供します:
 
-For example:
+- `paste-in-selected-case.pasteInSelectedCase`: 任意のケースを選択して貼り付け
+- `paste-in-selected-case.camelCase`: Camel Case に変換して貼り付け
+- `paste-in-selected-case.titleCase`: Title Case に変換して貼り付け
+- `paste-in-selected-case.constantCase`: Constant Case に変換して貼り付け
+- `paste-in-selected-case.dotCase`: Dot Case に変換して貼り付け
+- `paste-in-selected-case.paramCase`: Param Case に変換して貼り付け
+- `paste-in-selected-case.upperCase`: Upper Case に変換して貼り付け
+- `paste-in-selected-case.pathCase`: Path Case に変換して貼り付け
+- `paste-in-selected-case.sentenceCase`: Sentence Case に変換して貼り付け
+- `paste-in-selected-case.snakeCase`: Snake Case に変換して貼り付け
 
-This extension contributes the following settings:
+## 使用しているライブラリ
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+この拡張機能では、以下のライブラリを使用しています:
+
+- [`change-case`](https://github.com/blakeembrey/change-case): テキストをさまざまなケース（Camel Case、Snake Case など）に変換するためのライブラリ。
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.3
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- 基本的なケース変換と貼り付け機能を実装
