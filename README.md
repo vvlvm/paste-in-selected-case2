@@ -5,18 +5,19 @@
 ## Features
 
 - クリップボードのテキストを指定したケースに変換して貼り付け
+  - コマンドパレット(`Ctrl+Shift+P`)から`Paste in Selected Case`を実行
 - 複数カーソルに対応し、それぞれのカーソル位置に異なるテキストを貼り付け
 - 改行を含むテキストを分割して貼り付けるオプション
-- サポートされるケース:
-  - Camel Case
-  - Title Case
-  - Constant Case
-  - Dot Case
-  - Param Case
-  - Upper Case
-  - Path Case
-  - Sentence Case
-  - Snake Case
+- サポートされるその他のコマンド:
+  - `Paste in Camel Case`
+  - `Paste in Title Case`
+  - `Paste in Constant Case`
+  - `Paste in Dot Case`
+  - `Paste in Param Case`
+  - `Paste in Upper Case`
+  - `Paste in Path Case`
+  - `Paste in Sentence Case`
+  - `Paste in Snake Case`
 
 ## Requirements
 
