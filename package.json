@@ -2,7 +2,7 @@
 	"name": "paste-in-selected-case",
 	"displayName": "Paste in Selected Case",
 	"description": "",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.98.0"
 	},
