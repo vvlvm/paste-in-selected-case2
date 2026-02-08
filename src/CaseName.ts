@@ -1,26 +1,41 @@
+import * as vscode from 'vscode'
+
 export const CASE_NAMES = [
-	'Camel Case',
-	'Upper Case',
-	'Constant Case',
-	'Dot Case',
-	'Param Case',
-	'Path Case',
-	'Snake Case',
-	'Title Case',
-	'Sentence Case',
+	'camelCase',
+	'capitalCase',
+	'constantCase',
+	'dotCase',
+	'kebabCase',
+	'noCase',
+	'pascalCase',
+	'pascalSnakeCase',
+	'pathCase',
+	'sentenceCase',
+	'snakeCase',
+	'trainCase',
 ] as const
 
-export type CaseName =
-	| 'Camel Case'
-	| 'Title Case'
-	| 'Constant Case'
-	| 'Dot Case'
-	| 'Param Case'
-	| 'Upper Case'
-	| 'Path Case'
-	| 'Sentence Case'
-	| 'Snake Case'
+export type ChangeCaseCaseName = (typeof CASE_NAMES)[number]
 
-export function isCaseName(value: unknown): value is CaseName {
-	return CASE_NAMES.includes(value as CaseName)
+export const CASE_LABELS: { [key in ChangeCaseCaseName]: string } = {
+	camelCase: 'Camel Case',
+	capitalCase: 'Capital Case',
+	constantCase: 'Constant Case',
+	dotCase: 'Dot Case',
+	kebabCase: 'Kebab Case (Hyphenated)',
+	noCase: 'No Case (Lowercase with spaces)',
+	pascalCase: 'Pascal Case (Upper Camel Case)',
+	pascalSnakeCase: 'Pascal Snake Case',
+	pathCase: 'Path Case (Slash Separated)',
+	sentenceCase: 'Sentence Case',
+	snakeCase: 'Snake Case',
+	trainCase: 'Train Case',
+}
+
+export function isCaseName(value: unknown): value is ChangeCaseCaseName {
+	return CASE_NAMES.includes(value as ChangeCaseCaseName)
+}
+
+export interface CaseQuickPickItem extends vscode.QuickPickItem {
+	caseName: ChangeCaseCaseName
 }

@@ -30,8 +30,8 @@
 				"title": "Paste in Camel Case"
 			},
 			{
-				"command": "paste-in-selected-case.titleCase",
-				"title": "Paste in Title Case"
+				"command": "paste-in-selected-case.capitalCase",
+				"title": "Paste in Capital Case"
 			},
 			{
 				"command": "paste-in-selected-case.constantCase",
@@ -42,16 +42,24 @@
 				"title": "Paste in Dot Case"
 			},
 			{
-				"command": "paste-in-selected-case.paramCase",
-				"title": "Paste in Param Case"
+				"command": "paste-in-selected-case.kebabCase",
+				"title": "Paste in Kebab Case (Hyphenated)"
 			},
 			{
-				"command": "paste-in-selected-case.upperCase",
-				"title": "Paste in Upper Case"
+				"command": "paste-in-selected-case.noCase",
+				"title": "Paste in No Case (Lowercase with spaces)"
+			},
+			{
+				"command": "paste-in-selected-case.pascalCase",
+				"title": "Paste in Pascal Case (Upper Camel Case)"
+			},
+			{
+				"command": "paste-in-selected-case.pascalSnakeCase",
+				"title": "Paste in Pascal Snake Case"
 			},
 			{
 				"command": "paste-in-selected-case.pathCase",
-				"title": "Paste in Path Case"
+				"title": "Paste in Path Case (Slash Separated)"
 			},
 			{
 				"command": "paste-in-selected-case.sentenceCase",
@@ -60,6 +68,10 @@
 			{
 				"command": "paste-in-selected-case.snakeCase",
 				"title": "Paste in Snake Case"
+			},
+			{
+				"command": "paste-in-selected-case.trainCase",
+				"title": "Paste in Train Case"
 			}
 		]
 	},

@@ -1,8 +1,7 @@
 import * as vscode from 'vscode'
-import { CaseName } from './CaseName'
-import { toCase } from './toCase'
+import { ChangeCaseCaseName } from './CaseName'
 
-export async function pasteInCase(caseName: CaseName) {
+export async function pasteInCase(caseName: ChangeCaseCaseName) {
 	const clipboardText = await vscode.env.clipboard.readText()
 
 	if (clipboardText === null || clipboardText === undefined) {
@@ -10,11 +9,8 @@ export async function pasteInCase(caseName: CaseName) {
 		return
 	}
 
-	const transformedText: string = await toCase(caseName, clipboardText)
-	const multiCursorTransformedTexts: string[] = await Promise.all(
-		splitClipboardTextForMultiCursor(clipboardText).map((text) => toCase(caseName, text))
-	)
-
+	const changeCase = await import('change-case')
+	const transformedText: string = changeCase[caseName](clipboardText)
 	const containsNewLine = /[\n\r]/.test(clipboardText)
 
 	if (!containsNewLine) {
@@ -29,6 +25,12 @@ export async function pasteInCase(caseName: CaseName) {
 		return
 	}
 
+	const multiCursorTransformedTexts: string[] = await Promise.all(
+		splitClipboardTextForMultiCursor(clipboardText).map((text) =>
+			changeCase[caseName](text),
+		),
+	)
+
 	// 分割するかしないかの選択肢を表示
 	const splitOptionMenuItems: SplitOptionMenuItem[] = [
 		{
@@ -38,9 +40,13 @@ export async function pasteInCase(caseName: CaseName) {
 		},
 		{ label: '改行で分割しない', detail: transformedText },
 	]
-	const selectedMenuItem = await vscode.window.showQuickPick(splitOptionMenuItems, {
-		title: 'クリップボードのテキストが複数行またはマルチカーソルです。改行で分割しますか？',
-	})
+	const selectedMenuItem = await vscode.window.showQuickPick(
+		splitOptionMenuItems,
+		{
+			title:
+				'クリップボードのテキストが複数行またはマルチカーソルです。改行で分割しますか？',
+		},
+	)
 
 	const canceled = selectedMenuItem === undefined
 	if (canceled) {
@@ -67,14 +73,13 @@ interface SplitOptionMenuItem extends vscode.QuickPickItem {
 	label: '改行で分割する' | '改行で分割しない'
 }
 
-async function pasteText(sourceText: string) {
+function pasteText(sourceText: string) {
 	const editor = vscode.window.activeTextEditor
 	if (editor) {
 		editor.edit((editBuilder) => {
 			const selections = editor.selections
 			selections.forEach((selection) => {
-				const position = selection.active
-				editBuilder.insert(position, sourceText)
+				editBuilder.replace(selection, sourceText)
 			})
 		})
 	} else {
@@ -89,9 +94,8 @@ async function pasteAsMultiCursor(sourceTexts: string[]) {
 		editor.edit((editBuilder) => {
 			const selections = editor.selections
 			selections.forEach((selection, index) => {
-				const position = selection.active
 				const text = sourceTexts[index % sourceTexts.length] // 配列の長さを超えた場合にループする
-				editBuilder.insert(position, text)
+				editBuilder.replace(selection, text)
 			})
 
 			// 残りのtransformedTextを最後のカーソル位置に貼り付ける
