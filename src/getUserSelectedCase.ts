@@ -1,8 +1,14 @@
 import * as vscode from 'vscode'
-import { CASE_NAMES, isCaseName } from './CaseName'
-import { toCase } from './toCase'
+import {
+	CASE_LABELS,
+	CASE_NAMES,
+	CaseQuickPickItem,
+	isCaseName,
+} from './CaseName'
 
 export async function getUserSelectedCase() {
+	const changeCase = await import('change-case')
+
 	// ユーザーにケースを選択させるメニューを表示
 	/**
 	 * https://www.npmjs.com/package/change-case
@@ -19,11 +25,12 @@ export async function getUserSelectedCase() {
 	 * snakeCase				two_words
 	 * trainCase				Two-Words
 	 **/
-	const menu: vscode.QuickPickItem[] = await Promise.all(
+	const menu: CaseQuickPickItem[] = await Promise.all(
 		CASE_NAMES.map(async (caseName) => ({
-			label: caseName,
-			description: await toCase(caseName, 'sample text'),
-		}))
+			label: CASE_LABELS[caseName],
+			description: changeCase[caseName]('sample text'),
+			caseName,
+		})),
 	)
 
 	const selectedCase = await vscode.window.showQuickPick(menu, {
@@ -33,9 +40,10 @@ export async function getUserSelectedCase() {
 	if (!selectedCase) {
 		return
 	}
-	if (!isCaseName(selectedCase.label)) {
+
+	if (!isCaseName(selectedCase.caseName)) {
 		return
 	}
 
-	return selectedCase.label
+	return selectedCase.caseName
 }
